@@ -1740,6 +1740,86 @@ Route::prefix('admin-home')->middleware(['setlang:backend'])->group(function () 
         Route::post('/single-settings', 'BlogController@update_blog_single_page_settings');
     });
 
+
+     /*==============================================
+       last-news
+    ==============================================*/
+        Route::prefix('last-news')->middleware(['adminPermissionCheck:Blogs Manage'])->group(function () {
+        /*-------------------------
+          last-news ROUTES
+        --------------------------*/
+        Route::get('/', 'LastNewsController@index')->name('admin.last-news');
+        Route::get('/new', 'LastNewsController@new_blog')->name('admin.last-news.new');
+        Route::post('/new', 'LastNewsController@store_new_blog');
+        Route::post('/clone', 'LastNewsController@clone_blog')->name('admin.last-news.clone');
+        Route::get('/edit/{id}', 'LastNewsController@edit_blog')->name('admin.last-news.edit');
+        Route::post('/update/{id}', 'LastNewsController@update_blog')->name('admin.last-news.update');
+        Route::post('/delete/{id}', 'LastNewsController@delete_blog')->name('admin.last-news.delete');
+        Route::post('/bulk-action', 'LastNewsController@bulk_action')->name('admin.last-news.bulk.action');
+
+        /*-------------------------
+          BLOG CATEGORIES ROUTES
+        --------------------------*/
+        Route::group(['prefix' => 'category'],function (){
+            Route::get('/', 'LastNewsController@category')->name('admin.last-news.category');
+            Route::post('/', 'LastNewsController@new_category');
+            Route::post('/delete/{id}', 'LastNewsController@delete_category')->name('admin.last-news.category.delete');
+            Route::post('/update', 'LastNewsController@update_category')->name('admin.last-news.category.update');
+            Route::post('/bulk-action', 'LastNewsController@category_bulk_action')->name('admin.last-news.category.bulk.action');
+        });
+
+
+        Route::post('/blog-lang-by-cat', 'LastNewsController@Language_by_slug')->name('admin.last-news.lang.cat');
+        /*-------------------------
+           BLOG PAGE SETTINGS ROUTES
+        --------------------------*/
+        Route::get('/page-settings', 'LastNewsController@blog_page_settings')->name('admin.last-news.page.settings');
+        Route::post('/page-settings', 'LastNewsController@update_blog_page_settings');
+        Route::get('/single-settings', 'LastNewsController@blog_single_page_settings')->name('admin.last-news.single.settings');
+        Route::post('/single-settings', 'LastNewsController@update_blog_single_page_settings');
+    });
+
+
+
+    /*==============================================
+       industrial
+    ==============================================*/
+    Route::prefix('industrial')->middleware(['adminPermissionCheck:Blogs Manage'])->group(function () {
+        /*-------------------------
+          industrial ROUTES
+        --------------------------*/
+        Route::get('/', 'BlogController@index')->name('admin.industrial');
+        Route::get('/new', 'BlogController@new_blog')->name('admin.industrial.new');
+        Route::post('/new', 'BlogController@store_new_blog');
+        Route::post('/clone', 'BlogController@clone_blog')->name('admin.industrial.clone');
+        Route::get('/edit/{id}', 'BlogController@edit_blog')->name('admin.lindustrial.edit');
+        Route::post('/update/{id}', 'BlogController@update_blog')->name('admin.industrial.update');
+        Route::post('/delete/{id}', 'BlogController@delete_blog')->name('admin.industrial.delete');
+        Route::post('/bulk-action', 'BlogController@bulk_action')->name('admin.industrial.bulk.action');
+
+        /*-------------------------
+          BLOG CATEGORIES ROUTES
+        --------------------------*/
+        Route::group(['prefix' => 'category'],function (){
+            Route::get('/', 'BlogController@category')->name('admin.industrial.category');
+            Route::post('/', 'BlogController@new_category');
+            Route::post('/delete/{id}', 'BlogController@delete_category')->name('admin.industrial.category.delete');
+            Route::post('/update', 'BlogController@update_category')->name('admin.industrial.category.update');
+            Route::post('/bulk-action', 'BlogController@category_bulk_action')->name('admin.industrial.category.bulk.action');
+        });
+
+
+        Route::post('/blog-lang-by-cat', 'BlogController@Language_by_slug')->name('admin.industrial.lang.cat');
+        /*-------------------------
+           BLOG PAGE SETTINGS ROUTES
+        --------------------------*/
+        Route::get('/page-settings', 'BlogController@blog_page_settings')->name('admin.industrial.page.settings');
+        Route::post('/page-settings', 'BlogController@update_blog_page_settings');
+        Route::get('/single-settings', 'BlogController@blog_single_page_settings')->name('admin.industrial.single.settings');
+        Route::post('/single-settings', 'BlogController@update_blog_single_page_settings');
+    });
+
+
     /*==============================================
       PAGES ROUTES
     ==============================================*/

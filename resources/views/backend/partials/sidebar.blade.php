@@ -110,6 +110,51 @@
                             </ul>
                         </li>
                     @endif
+                   
+                    @if(check_page_permission_by_string('Blogs Manage'))
+                    <li
+                     class="main_dropdown
+                    @if(request()->is(['admin-home/industrial/*','admin-home/industrial'])) active @endif
+                    ">
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fas fa-newspaper"></i>
+                            <span>{{__('Last News')}}</span></a>
+                        <ul class="collapse">
+                            <li class="{{active_menu('admin-home/last-news')}}"><a
+                                        href="{{route('admin.last-news')}}">{{__('All Blog')}}</a></li>
+                            <li class="{{active_menu('admin-home/last-news/category')}}"><a
+                                        href="{{route('admin.last-news.category')}}">{{__('Category')}}</a></li>
+                            <li class="{{active_menu('admin-home/last-news/new')}}"><a
+                                        href="{{route('admin.last-news.new')}}">{{__('Add New Post')}}</a></li>
+                            <li class="{{active_menu('admin-home/last-news/page-settings')}}"><a
+                                    href="{{route('admin.last-news.page.settings')}}">{{__('Last News Page Settings')}}</a></li>
+                            <li class="{{active_menu('admin-home/last-news/single-settings')}}"><a
+                                    href="{{route('admin.last-news.single.settings')}}">{{__('Last News Single Settings')}}</a></li>
+                        </ul>
+                    </li>
+                     @endif
+                     @if(check_page_permission_by_string('Blogs Manage'))
+                     <li
+                      class="main_dropdown
+                     @if(request()->is(['admin-home/forum/*','admin-home/forum'])) active @endif
+                     ">
+                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
+                             <span>{{__('Industrial Forum')}}</span></a>
+                         <ul class="collapse">
+                             <li class="{{active_menu('admin-home/forum')}}"><a
+                                         href="{{route('admin.forum')}}">{{__('All Blog')}}</a></li>
+                             <li class="{{active_menu('admin-home/forum/category')}}"><a
+                                         href="{{route('admin.forum.category')}}">{{__('Category')}}</a></li>
+                             <li class="{{active_menu('admin-home/forum/new')}}"><a
+                                         href="{{route('admin.forum.new')}}">{{__('Add New Post')}}</a></li>
+                             <li class="{{active_menu('admin-home/forum/page-settings')}}"><a
+                                     href="{{route('admin.forum.page.settings')}}">{{__('Industrial Forum Page Settings')}}</a></li>
+                             <li class="{{active_menu('admin-home/forum/single-settings')}}"><a
+                                     href="{{route('admin.forum.single.settings')}}">{{__('Industrial Forum Single Settings')}}</a></li>
+                         </ul>
+                     </li>
+                      @endif
+
+
                     @if(check_page_permission_by_string('Services'))
                     <li class="main_dropdown
                     @if(request()->is(['admin-home/services/*','admin-home/services'])) active @endif

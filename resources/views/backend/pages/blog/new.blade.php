@@ -1,9 +1,10 @@
 @extends('backend.admin-master')
 @section('style')
     <link rel="stylesheet" href="{{asset('assets/backend/css/bootstrap-tagsinput.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/backend/css/summernote-bs4.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('assets/backend/css/summernote-bs4.css')}}"> --}}
     <link rel="stylesheet" href="{{asset('assets/backend/css/dropzone.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/media-uploader.css')}}">
+
 @endsection
 @section('site-title')
     {{__('New Blog Post')}}
@@ -44,8 +45,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label>{{__('Content')}}</label>
-                                        <input type="hidden" name="blog_content" >
-                                        <div class="summernote"></div>
+                                      
+                                        <textarea type="hidden"  name="blog_content"></textarea>
+                                        
                                     </div>
                                     <div class="form-group">
                                         <label for="meta_tags">{{__('Meta Tags')}}</label>
@@ -100,9 +102,11 @@
     @include('backend.partials.media-upload.media-upload-markup')
 @endsection
 @section('script')
-    <script src="{{asset('assets/backend/js/summernote-bs4.js')}}"></script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    {{-- <script src="{{asset('assets/backend/js/summernote-bs4.js')}}"></script> --}}
     <script src="{{asset('assets/backend/js/bootstrap-tagsinput.js')}}"></script>
     <script>
+        CKEDITOR.replace( 'blog_content' );
         $(document).ready(function () {
             $(document).on('click','.category_edit_btn',function(){
                 var el = $(this);
@@ -114,22 +118,22 @@
                 modal.find('#edit_status option[value="'+status+'"]').attr('selected',true);
                 modal.find('#edit_name').val(name);
             });
-            $('.summernote').summernote({
-                height: 400,   //set editable area's height
-                codemirror: { // codemirror options
-                    theme: 'monokai'
-                },
-                callbacks: {
-                    onChange: function(contents, $editable) {
-                        $(this).prev('input').val(contents);
-                    }
-                }
-            });
-            if($('.summernote').length > 1){
-                $('.summernote').each(function(index,value){
-                    $(this).summernote('code', $(this).data('content'));
-                });
-            }
+            // $('.summernote').summernote({
+            //     height: 400,   //set editable area's height
+            //     codemirror: { // codemirror options
+            //         theme: 'monokai'
+            //     },
+            //     callbacks: {
+            //         onChange: function(contents, $editable) {
+            //             $(this).prev('input').val(contents);
+            //         }
+            //     }
+            // });
+            // if($('.summernote').length > 1){
+            //     $('.summernote').each(function(index,value){
+            //         $(this).summernote('code', $(this).data('content'));
+            //     });
+            // }
 
             $(document).on('change','#language',function(e){
                e.preventDefault();

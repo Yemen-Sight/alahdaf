@@ -1,6 +1,6 @@
 <?php $__env->startSection('style'); ?>
     <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/bootstrap-tagsinput.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/summernote-bs4.css')); ?>">
+    
     <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/dropzone.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/media-uploader.css')); ?>">
 <?php $__env->stopSection(); ?>
@@ -64,8 +64,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label><?php echo e(__('Content')); ?></label>
-                                        <input type="hidden" name="blog_content" value="<?php echo e($blog_post->content); ?>">
-                                        <div class="summernote" data-content='<?php echo e($blog_post->content); ?>'></div>
+                                        <textarea value="<?php echo e($blog_post->content); ?>" type="hidden"  name="blog_content"><?php echo e($blog_post->content); ?></textarea>                                        
                                     </div>
                                     <div class="form-group">
                                         <label for="meta_tags"><?php echo e(__('Meta Tags')); ?></label>
@@ -134,26 +133,28 @@
     <?php echo $__env->make('backend.partials.media-upload.media-upload-markup', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
-    <script src="<?php echo e(asset('assets/backend/js/summernote-bs4.js')); ?>"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    
     <script src="<?php echo e(asset('assets/backend/js/bootstrap-tagsinput.js')); ?>"></script>
     <script>
+         CKEDITOR.replace( 'blog_content' );
         $(document).ready(function () {
-            $('.summernote').summernote({
-                height: 400,   //set editable area's height
-                codemirror: { // codemirror options
-                    theme: 'monokai'
-                },
-                callbacks: {
-                    onChange: function(contents, $editable) {
-                        $(this).prev('input').val(contents);
-                    }
-                }
-            });
-            if($('.summernote').length > 0){
-                $('.summernote').each(function(index,value){
-                    $(this).summernote('code', $(this).data('content'));
-                });
-            }
+            // $('.summernote').summernote({
+            //     height: 400,   //set editable area's height
+            //     codemirror: { // codemirror options
+            //         theme: 'monokai'
+            //     },
+            //     callbacks: {
+            //         onChange: function(contents, $editable) {
+            //             $(this).prev('input').val(contents);
+            //         }
+            //     }
+            // });
+            // if($('.summernote').length > 0){
+            //     $('.summernote').each(function(index,value){
+            //         $(this).summernote('code', $(this).data('content'));
+            //     });
+            // }
 
             $(document).on('change','#language',function(e){
                 e.preventDefault();

@@ -1,8 +1,9 @@
 <?php $__env->startSection('style'); ?>
     <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/bootstrap-tagsinput.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/summernote-bs4.css')); ?>">
+    
     <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/dropzone.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/media-uploader.css')); ?>">
+   
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('site-title'); ?>
     <?php echo e(__('New Blog Post')); ?>

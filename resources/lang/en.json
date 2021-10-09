@@ -1868,5 +1868,6 @@
     "{dnname} will be replaced by package name": "{dnname} will be replaced by package name",
     "{evname} will be replaced by package name": "{evname} will be replaced by package name",
     "{pkname} will be replaced by package name": "{pkname} will be replaced by package name",
-    "{site} will be replaced by site title": "{site} will be replaced by site title"
+    "{site} will be replaced by site title": "{site} will be replaced by site title",
+    "Last News":"اخر الاخبار"
 }
