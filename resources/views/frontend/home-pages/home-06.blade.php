@@ -56,7 +56,7 @@
      data-margin="0"
 >
     @php
-        $all_bg_image_fields =  filter_static_option_value('home_page_06_header_section_bg_image',$static_field_data);
+        $all_bg_image_fields =  filter_static_option_value('home_page_0_header_section_bg_image',$static_field_data);
         $all_bg_image_fields = !empty($all_bg_image_fields) ? unserialize($all_bg_image_fields) : [];
         $all_button_one_url_fields =  filter_static_option_value('home_page_06_header_section_button_one_url',$static_field_data);
         $all_button_one_url_fields = !empty($all_button_one_url_fields) ? unserialize($all_button_one_url_fields) : [];

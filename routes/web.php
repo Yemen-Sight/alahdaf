@@ -340,6 +340,16 @@ Route::group(['middleware' => ['setlang:frontend', 'globalVariable', 'maintains_
         Route::get( $blog_page_slug.'-category/{id}/{any}', 'FrontendController@category_wise_blog_page')->name('frontend.blog.category');
         Route::get( $blog_page_slug.'-tags/{name}', 'FrontendController@tags_wise_blog_page')->name('frontend.blog.tags.page');
 
+
+         /*--------------------------------------
+        FRONTEND: BLOGS ROUTES
+    ---------------------------------------*/
+    Route::get('last-news', 'FrontendController@last_news_page')->name('frontend.last_news');
+    Route::get( 'last-news/{slug}', 'FrontendController@last_news_single_page')->name('frontend.last_news.single');
+    // Route::get( 'last-news-search', 'FrontendController@blog_search_page')->name('frontend.blog.search');
+    // Route::get('last-news-category/{id}/{any}', 'FrontendController@category_wise_blog_page')->name('frontend.blog.category');
+    // Route::get( 'last-news-tags/{name}', 'FrontendController@tags_wise_blog_page')->name('frontend.blog.tags.page');
+
     /*------------------------------------
         FRONTEND: ROUTES
     ------------------------------------*/
@@ -1784,38 +1794,38 @@ Route::prefix('admin-home')->middleware(['setlang:backend'])->group(function () 
     /*==============================================
        industrial
     ==============================================*/
-    Route::prefix('industrial')->middleware(['adminPermissionCheck:Blogs Manage'])->group(function () {
+    Route::prefix('forum')->middleware(['adminPermissionCheck:Blogs Manage'])->group(function () {
         /*-------------------------
           industrial ROUTES
         --------------------------*/
-        Route::get('/', 'BlogController@index')->name('admin.industrial');
-        Route::get('/new', 'BlogController@new_blog')->name('admin.industrial.new');
+        Route::get('/', 'BlogController@index')->name('admin.forum');
+        Route::get('/new', 'BlogController@new_blog')->name('admin.forum.new');
         Route::post('/new', 'BlogController@store_new_blog');
-        Route::post('/clone', 'BlogController@clone_blog')->name('admin.industrial.clone');
-        Route::get('/edit/{id}', 'BlogController@edit_blog')->name('admin.lindustrial.edit');
-        Route::post('/update/{id}', 'BlogController@update_blog')->name('admin.industrial.update');
-        Route::post('/delete/{id}', 'BlogController@delete_blog')->name('admin.industrial.delete');
-        Route::post('/bulk-action', 'BlogController@bulk_action')->name('admin.industrial.bulk.action');
+        Route::post('/clone', 'BlogController@clone_blog')->name('admin.forum.clone');
+        Route::get('/edit/{id}', 'BlogController@edit_blog')->name('admin.forum.edit');
+        Route::post('/update/{id}', 'BlogController@update_blog')->name('admin.forum.update');
+        Route::post('/delete/{id}', 'BlogController@delete_blog')->name('admin.forum.delete');
+        Route::post('/bulk-action', 'BlogController@bulk_action')->name('admin.forum.bulk.action');
 
         /*-------------------------
           BLOG CATEGORIES ROUTES
         --------------------------*/
         Route::group(['prefix' => 'category'],function (){
-            Route::get('/', 'BlogController@category')->name('admin.industrial.category');
+            Route::get('/', 'BlogController@category')->name('admin.forum.category');
             Route::post('/', 'BlogController@new_category');
-            Route::post('/delete/{id}', 'BlogController@delete_category')->name('admin.industrial.category.delete');
-            Route::post('/update', 'BlogController@update_category')->name('admin.industrial.category.update');
-            Route::post('/bulk-action', 'BlogController@category_bulk_action')->name('admin.industrial.category.bulk.action');
+            Route::post('/delete/{id}', 'BlogController@delete_category')->name('admin.forum.category.delete');
+            Route::post('/update', 'BlogController@update_category')->name('admin.forum.category.update');
+            Route::post('/bulk-action', 'BlogController@category_bulk_action')->name('admin.forum.category.bulk.action');
         });
 
 
-        Route::post('/blog-lang-by-cat', 'BlogController@Language_by_slug')->name('admin.industrial.lang.cat');
+        Route::post('/blog-lang-by-cat', 'BlogController@Language_by_slug')->name('admin.forum.lang.cat');
         /*-------------------------
            BLOG PAGE SETTINGS ROUTES
         --------------------------*/
-        Route::get('/page-settings', 'BlogController@blog_page_settings')->name('admin.industrial.page.settings');
+        Route::get('/page-settings', 'BlogController@blog_page_settings')->name('admin.forum.page.settings');
         Route::post('/page-settings', 'BlogController@update_blog_page_settings');
-        Route::get('/single-settings', 'BlogController@blog_single_page_settings')->name('admin.industrial.single.settings');
+        Route::get('/single-settings', 'BlogController@blog_single_page_settings')->name('admin.forum.single.settings');
         Route::post('/single-settings', 'BlogController@update_blog_single_page_settings');
     });
 

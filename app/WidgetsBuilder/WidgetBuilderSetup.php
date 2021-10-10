@@ -143,6 +143,7 @@ class WidgetBuilderSetup
     {
         $output = '';
         $all_widgets = \App\Widgets::where(['widget_location' => $location])->orderBy('widget_order', 'ASC')->get();
+        
         foreach ($all_widgets as $widget) {
             $output .= \App\WidgetsBuilder\WidgetBuilderSetup::render_widgets_by_name_for_frontend([
                 'name' => $widget->widget_name,

@@ -136,21 +136,21 @@
                      <?php if(check_page_permission_by_string('Blogs Manage')): ?>
                      <li
                       class="main_dropdown
-                     <?php if(request()->is(['admin-home/industrial/*','admin-home/industrial'])): ?> active <?php endif; ?>
+                     <?php if(request()->is(['admin-home/forum/*','admin-home/forum'])): ?> active <?php endif; ?>
                      ">
                          <a href="javascript:void(0)" aria-expanded="true"><i class="ti-write"></i>
                              <span><?php echo e(__('Industrial Forum')); ?></span></a>
                          <ul class="collapse">
-                             <li class="<?php echo e(active_menu('admin-home/industrial')); ?>"><a
-                                         href="<?php echo e(route('admin.industrial')); ?>"><?php echo e(__('All Blog')); ?></a></li>
-                             <li class="<?php echo e(active_menu('admin-home/industrial/category')); ?>"><a
-                                         href="<?php echo e(route('admin.industrial.category')); ?>"><?php echo e(__('Category')); ?></a></li>
-                             <li class="<?php echo e(active_menu('admin-home/industrial/new')); ?>"><a
-                                         href="<?php echo e(route('admin.industrial.new')); ?>"><?php echo e(__('Add New Post')); ?></a></li>
-                             <li class="<?php echo e(active_menu('admin-home/industrial/page-settings')); ?>"><a
-                                     href="<?php echo e(route('admin.industrial.page.settings')); ?>"><?php echo e(__('Industrial Page Settings')); ?></a></li>
-                             <li class="<?php echo e(active_menu('admin-home/industrial/single-settings')); ?>"><a
-                                     href="<?php echo e(route('admin.industrial.single.settings')); ?>"><?php echo e(__('Industrial Single Settings')); ?></a></li>
+                             <li class="<?php echo e(active_menu('admin-home/forum')); ?>"><a
+                                         href="<?php echo e(route('admin.forum')); ?>"><?php echo e(__('All Blog')); ?></a></li>
+                             <li class="<?php echo e(active_menu('admin-home/forum/category')); ?>"><a
+                                         href="<?php echo e(route('admin.forum.category')); ?>"><?php echo e(__('Category')); ?></a></li>
+                             <li class="<?php echo e(active_menu('admin-home/forum/new')); ?>"><a
+                                         href="<?php echo e(route('admin.forum.new')); ?>"><?php echo e(__('Add New Post')); ?></a></li>
+                             <li class="<?php echo e(active_menu('admin-home/forum/page-settings')); ?>"><a
+                                     href="<?php echo e(route('admin.forum.page.settings')); ?>"><?php echo e(__('Industrial Forum Page Settings')); ?></a></li>
+                             <li class="<?php echo e(active_menu('admin-home/forum/single-settings')); ?>"><a
+                                     href="<?php echo e(route('admin.forum.single.settings')); ?>"><?php echo e(__('Industrial Forum Single Settings')); ?></a></li>
                          </ul>
                      </li>
                       <?php endif; ?>

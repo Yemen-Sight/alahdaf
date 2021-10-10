@@ -44,6 +44,7 @@ use App\Quote;
 use App\ServiceCategory;
 use App\Services;
 use App\Blog;
+use App\LastNews;
 use App\BlogCategory;
 use App\Brand;
 use App\HeaderSlider;
@@ -95,6 +96,7 @@ class FrontendController extends Controller
         $all_brand_logo = Brand::all();
         $all_work = Works::where(['lang' => $lang, 'status' => 'publish'])->orderBy('id', 'desc')->take(get_static_option('home_page_01_case_study_items'))->get();
         $all_blog = Blog::where(['lang' => $lang, 'status' => 'publish'])->orderBy('id', 'desc')->take(6)->get();
+        $all_last_news = LastNews::where(['lang' => $lang, 'status' => 'publish'])->orderBy('id', 'desc')->take(6)->get();
         $all_contact_info = ContactInfoItem::where(['lang' => $lang])->orderBy('id', 'desc')->get();
         $all_service_category = ServiceCategory::where(['lang' => $lang, 'status' => 'publish'])->orderBy('id', 'desc')->take(get_static_option('home_page_01_service_area_items'))->get();
         $all_contain_cat = $all_work->map(function ($index) { return $index->categories_id; });
@@ -117,6 +119,7 @@ class FrontendController extends Controller
             'all_service' => $all_service,
             'all_testimonial' => $all_testimonial,
             'all_blog' => $all_blog,
+            'all_Last_news' => $all_last_news,
             'all_price_plan' => $all_price_plan,
             'all_team_members' => $all_team_members,
             'all_brand_logo' => $all_brand_logo,
@@ -357,13 +360,30 @@ class FrontendController extends Controller
         $all_recent_blogs = Blog::where('lang', $lang)->orderBy('id', 'desc')->take(get_static_option('blog_page_recent_post_widget_item'))->get();
         $all_blogs = Blog::where('lang', $lang)->orderBy('id', 'desc')->paginate(get_static_option('blog_page_item'));
         $all_category = BlogCategory::where(['status' => 'publish', 'lang' => $lang])->orderBy('id', 'desc')->get();
+        $order =  get_static_option('site_video_gallery_order') ?? 'DESC';
+        $order_by =  get_static_option('site_video_gallery_order_by') ?? 'id';
+        $all_gallery_images = VideoGallery::where(['status' => 'publish'])->orderBy($order_by, $order)->paginate(get_static_option('site_video_gallery_post_items'));
+
         return view('frontend.pages.blog.blog')->with([
             'all_blogs' => $all_blogs,
             'all_categories' => $all_category,
             'all_recent_blogs' => $all_recent_blogs,
+            'all_gallery_images'=>$all_gallery_images
         ]);
     }
-
+    public function last_news_page()
+    {
+        $default_lang = Language::where('default', 1)->first();
+        $lang = !empty(session()->get('lang')) ? session()->get('lang') : $default_lang->slug;
+        $all_recent_blogs = LastNews::where('lang', $lang)->orderBy('id', 'desc')->take(get_static_option('blog_page_recent_post_widget_item'))->get();
+        $all_last_news = LastNews::where('lang', $lang)->orderBy('id', 'desc')->paginate(get_static_option('blog_page_item'));
+        $all_category = BlogCategory::where(['status' => 'publish', 'lang' => $lang])->orderBy('id', 'desc')->get();
+        return view('frontend.pages.last_news.last_news')->with([
+            'all_last_news' => $all_last_news,
+            'all_categories' => $all_category,
+            'all_recent_blogs' => $all_recent_blogs,
+        ]);
+    }
     public function category_wise_blog_page($id)
     {
         $default_lang = Language::where('default', 1)->first();
@@ -440,6 +460,26 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function last_news_single_page($slug)
+    {
+        $default_lang = Language::where('default', 1)->first();
+        $lang = !empty(session()->get('lang')) ? session()->get('lang') : $default_lang->slug;
+        $last_news_post = LastNews::where('slug', $slug)->first();
+        if (empty($blog_post)){
+            abort(404);
+        }
+        $all_recent_last_news = LastNews::where(['lang' => $lang])->orderBy('id', 'desc')->paginate(get_static_option('blog_page_recent_post_widget_item'));
+        $all_category = BlogCategory::where(['status' => 'publish', 'lang' => $lang])->orderBy('id', 'desc')->get();
+
+        $all_related_last_news = LastNews::where('lang', $lang)->Where('blog_categories_id', $last_news_post->blog_categories_id)->orderBy('id', 'desc')->take(6)->get();
+
+        return view('frontend.pages.last_news.last_news-single')->with([
+            'last_news_post' => $last_news_post,
+            'all_categories' => $all_category,
+            'all_recent_last_news' => $all_recent_last_news,
+            'all_related_last_news' => $all_related_last_news,
+        ]);
+    }
 
     public function dynamic_single_page($slug)
     {
